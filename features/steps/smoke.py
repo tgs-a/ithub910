@@ -33,21 +33,23 @@ def login(context):
     context.driver.find_element_by_id("kz.homecredit.ibank.debug:id/etInputText").send_keys("12345678")
     context.driver.find_element_by_id("kz.homecredit.ibank.debug:id/customButton").click()
 
-    time.sleep(15)
+    time.sleep(10)
     try:
         context.driver.find_element_by_id("kz.homecredit.ibank.debug:id/ovOtpCode").send_keys('0000')
     except NoSuchElementException:
         print('OK: Otp not called')
 
-    time.sleep(3)
-    #выбираем первую дебетовую карту
+    time.sleep(2)
 
+    #свайпаем вниз до дебетовой карты
+    context.driver.swipe(700, 1800, 700, 700)
+
+    #выбираем первую дебетовую карту
     context.driver.find_element_by_android_uiautomator('new UiSelector().text("738913******2157")').click()
     time.sleep(3)
 
     #проверяем доступность Выписки
     context.driver.find_element_by_android_uiautomator('new UiSelector().text("ВЫПИСКА")').click()
-
 
     print('test ok')
 
